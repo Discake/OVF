@@ -23,6 +23,13 @@ namespace OVFProject
         public MainWindow()
         {
             InitializeComponent();
+            Task1.FindULPfloat();
+            var ULPfloat = Task1.ULPfloat;
+            var Nfloat = Task1.Nfloat;
+
+            Task1.FindULPdouble();
+            var ULPdouble = Task1.ULPdouble;
+            var Ndouble = Task1.Ndouble;
         }
     }
 }
