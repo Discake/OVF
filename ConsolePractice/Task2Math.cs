@@ -47,13 +47,17 @@ namespace ConsolePractice
         {
             double x = (min + max) / 2;
             double phi = Phi(x, min, max);
+            double prev;
+            double rn;
 
-            while(Math.Abs(phi - x) > eps)
+            do
             {
+                prev = x;
                 x = phi;
                 phi = Phi(x, min, max);
-            }
-            return phi;
+                rn = Math.Pow(phi - x, 2) / Math.Abs(2 * x - phi - prev);
+            } while (rn > eps);
+                return phi;
         }
     }
 }
