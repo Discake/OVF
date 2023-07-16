@@ -17,10 +17,10 @@ namespace ConsolePractice
             this.eps = eps;
             double temp = Math.Pow(Math.PI, 2) / (8 * a * a * U0);
             if (temp > 1)
-                min = eps / 2;
+                min = eps;
             else
                 min = 1 - temp;
-            max = 1;
+            max = 1 - eps;
         }
 
         public double Func(double ksi)
@@ -33,6 +33,12 @@ namespace ConsolePractice
         {
             Task2Math.Func = Func;
             return Task2Math.Dychotomy(min, max, eps);
+        }
+
+        public double SolveSimpleItterations()
+        {
+            Task2Math.Func = Func;
+            return Task2Math.SimpleItterations(min, max, eps);
         }
     }
 }

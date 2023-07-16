@@ -37,6 +37,7 @@ namespace ConsolePractice
             Task2 task2 = new Task2(U0, a, eps);
 
             Console.WriteLine($"Dychotomy: {task2.SolveDichotomy()}");
+            Console.WriteLine($"Simple itterations: {task2.SolveSimpleItterations()}");
         }
     }
 }
