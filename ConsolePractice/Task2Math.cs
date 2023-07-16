@@ -9,7 +9,7 @@ namespace ConsolePractice
 {
     public class Task2Math
     {
-        static double lambda = -1;
+        static double lambda = -1.0/19;
         public static Func<double, double> Func { get; set; }
         public static Func<double, double> Derrivative { get; set; }
         public static double Dychotomy(double min, double max, double eps)
@@ -18,13 +18,17 @@ namespace ConsolePractice
             double middle = (max + min) / 2;
             while(max - min > eps)
             {
-                if(Func(min) * Func(middle) < 0)
-                {
-                    max = middle;
-                }
-                else
+                var check1 = Func(max);
+                var check2 = Func(middle);
+                if ( check1 * check2 < 0)
                 {
                     min = middle;
+                }
+                else if (check1 == 0 || check2 == 0)
+                    break;
+                else
+                {
+                    max = middle;
                 }
                 middle = (max + min) / 2;
                 counter++;
@@ -36,12 +40,12 @@ namespace ConsolePractice
         private static double Phi(double x, double min, double max)
         {
             double result = x - lambda * Func(x);
-            if(result < min || result > max)
+            /*if(result < min || result > max)
             {
                 lambda /= 10;
                 result = Phi(x, min, max);
             }
-            /*else
+            else
             {
                 lambda *= 1.01;
             }*/
@@ -63,6 +67,7 @@ namespace ConsolePractice
                 rn = Math.Pow(phi - x, 2) / Math.Abs(2 * x - phi - prev);
                 counter++;
             } while (rn > eps);
+
             Console.WriteLine($"Simple itterations: {counter}");
             return phi;
         }
