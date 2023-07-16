@@ -11,8 +11,7 @@ namespace ConsolePractice
     {
         static void Main(string[] args)
         {
-            task2();
-
+            task4();
             Console.ReadLine();
         }
 
@@ -38,6 +37,15 @@ namespace ConsolePractice
             Console.WriteLine($"Dychotomy: {task2.SolveDichotomy()}");
             Console.WriteLine($"Simple itterations: {task2.SolveSimpleItterations()}");
             Console.WriteLine($"Newton's method: {task2.SolveNewtonsMethod()}");
+        }
+
+        public static void task4()
+        {
+            double dx = 1;
+            for(double x = 0; x < Math.PI * 2; x += dx)
+            {
+                Task4.CheckSumm(x);
+            }
         }
     }
 }

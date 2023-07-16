@@ -40,7 +40,7 @@ namespace ConsolePractice
         private static double Phi(double x, double min, double max)
         {
             double result = x - lambda * Func(x);
-            /*if(result < min || result > max)
+            if(result < min || result > max)
             {
                 lambda /= 10;
                 result = Phi(x, min, max);
@@ -48,7 +48,7 @@ namespace ConsolePractice
             else
             {
                 lambda *= 1.01;
-            }*/
+            }
             return result;
         }
 
