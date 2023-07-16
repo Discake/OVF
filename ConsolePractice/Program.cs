@@ -30,14 +30,15 @@ namespace ConsolePractice
 
         public static void task2()
         {
-            double U0 = 1, a = 1, eps = 1e-12;
+            double U0 = 3, a = 1, eps = 1e-12;
 
             Console.WriteLine($"U0: {U0}, a: {a}, eps: {eps}");
 
             Task2 task2 = new Task2(U0, a, eps);
-
+            var check = task2.Func(0.588766483288317);
             Console.WriteLine($"Dychotomy: {task2.SolveDichotomy()}");
             Console.WriteLine($"Simple itterations: {task2.SolveSimpleItterations()}");
+            Console.WriteLine($"Newton's method: {task2.SolveNewtonsMethod()}");
         }
     }
 }

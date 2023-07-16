@@ -29,6 +29,14 @@ namespace ConsolePractice
             return result;
         }
 
+        public double Derrivative(double ksi)
+        {
+            double result = -2 * a * a * U0 / (2 * Math.Sqrt(2 * a * a * U0 * (1 - ksi)) *
+                Math.Pow(Math.Cos(Math.Sqrt(2 * a * a * U0 * (1 - ksi))), 2)) -
+                (ksi / Math.Pow(1 - ksi, 2) + 1 / (1 - ksi)) / (2 * Math.Sqrt(ksi / (1 - ksi)));
+            return result;
+        }
+
         public double SolveDichotomy()
         {
             Task2Math.Func = Func;
@@ -39,6 +47,13 @@ namespace ConsolePractice
         {
             Task2Math.Func = Func;
             return Task2Math.SimpleItterations(min, max, eps);
+        }
+
+        public double SolveNewtonsMethod()
+        {
+            Task2Math.Func = Func;
+            Task2Math.Derrivative = Derrivative;
+            return Task2Math.NewtonsMethod(min, max, eps);
         }
     }
 }
