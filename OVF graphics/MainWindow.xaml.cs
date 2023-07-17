@@ -25,7 +25,7 @@ namespace OVF_graphics
         {
             InitializeComponent();
 
-            task3();
+            task5();
         }
 
         void task3()
@@ -44,6 +44,24 @@ namespace OVF_graphics
 
             WpfPlot1.Plot.AddScatter(x, trapezoidResults);
             WpfPlot1.Plot.AddScatter(x, simpsonsResults);
+            WpfPlot1.Refresh();
+        }
+
+        void task5()
+        {
+            int N = 16;
+            Task5.N = N;
+            double[] pfiX, pfiY, xs, ys;
+            Task5.PointsForInterpolation(out pfiX, out pfiY);
+            Task5.InterpolatedPoints(out xs, out ys, 1000);
+
+            WpfPlot1.Plot.AddScatter(pfiX, pfiY, markerSize: 10);
+            WpfPlot1.Plot.AddScatter(xs, ys);
+
+            Task5.lpMinusYk(2, ref xs, ref ys);
+
+            WpfPlot1.Plot.AddScatter(xs, ys);
+            /*WpfPlot1.Plot.AddScatter(new double[] {-1e2, 1e2}, new double[] { 0, 0 }, color: System.Drawing.Color.DarkRed);*/
             WpfPlot1.Refresh();
         }
     }
