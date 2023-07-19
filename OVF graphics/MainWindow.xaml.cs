@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ConsolePractice.Task6;
 
 namespace OVF_graphics
 {
@@ -25,7 +26,7 @@ namespace OVF_graphics
         {
             InitializeComponent();
 
-            task5();
+            task6();
         }
 
         void task3()
@@ -62,6 +63,28 @@ namespace OVF_graphics
 
             WpfPlot1.Plot.AddScatter(xs, ys);
             /*WpfPlot1.Plot.AddScatter(new double[] {-1e2, 1e2}, new double[] { 0, 0 }, color: System.Drawing.Color.DarkRed);*/
+            WpfPlot1.Refresh();
+        }
+
+        void task6()
+        {
+            int N = 10;
+            Task6.N = N;
+            double[] xs, ys, eulerxs, eulerys, rk2x, rk2y, rk4x, rk4y;
+            Task6.GetEulersMethodSolution(out eulerxs, out eulerys);
+            Task6.GetRK2MethodSolution(out rk2x, out rk2y);
+            Task6.GetRK4MethodSolution(out rk4x, out rk4y);
+            Task6.N = 100;
+            Task6.GetSolution(out xs, out ys);
+            
+
+            WpfPlot1.Plot.AddScatter(xs, ys, label: "Solution");
+            WpfPlot1.Plot.AddScatter(eulerxs, eulerys, label: "Euler's method");
+            WpfPlot1.Plot.AddScatter(rk2x, rk2y, label: "R-K 2nd Order");
+            WpfPlot1.Plot.AddScatter(rk4x, rk4y, label: "R-K 4th Order");
+
+            WpfPlot1.Plot.Legend();
+
             WpfPlot1.Refresh();
         }
     }
