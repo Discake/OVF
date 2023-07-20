@@ -78,6 +78,8 @@
     <Compile Include="Task5\Task5Math.cs" />
     <Compile Include="Task6\Task6.cs" />
     <Compile Include="Task6\Task6Math.cs" />
+    <Compile Include="Task7\Task7.cs" />
+    <Compile Include="Task7\Task7Math.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

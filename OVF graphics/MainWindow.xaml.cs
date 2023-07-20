@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ConsolePractice.Task6;
+using ConsolePractice.Task7;
 
 namespace OVF_graphics
 {
@@ -26,7 +27,7 @@ namespace OVF_graphics
         {
             InitializeComponent();
 
-            task6();
+            task7();
         }
 
         void task3()
@@ -84,6 +85,15 @@ namespace OVF_graphics
             WpfPlot1.Plot.AddScatter(rk4x, rk4y, label: "R-K 4th Order");
 
             WpfPlot1.Plot.Legend();
+
+            WpfPlot1.Refresh();
+        }
+
+        void task7()
+        {
+            Task7.N = 250;
+            Task7.GetGeneralRK2Solution(out var xs, out var ys);
+            WpfPlot1.Plot.AddScatter(xs, ys);
 
             WpfPlot1.Refresh();
         }
