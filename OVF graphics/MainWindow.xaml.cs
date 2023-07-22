@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ConsolePractice.Task6;
 using ConsolePractice.Task7;
+using ConsolePractice.Task9;
 
 namespace OVF_graphics
 {
@@ -27,7 +28,7 @@ namespace OVF_graphics
         {
             InitializeComponent();
 
-            task7();
+            task9(1000);
         }
 
         void task3()
@@ -93,6 +94,19 @@ namespace OVF_graphics
         {
             Task7.N = 250;
             Task7.GetGeneralRK2Solution(out var xs, out var ys);
+            WpfPlot1.Plot.AddScatter(xs, ys);
+
+            WpfPlot1.Refresh();
+        }
+
+        void task9(int N = 100)
+        {
+            Task9.N = N;
+
+            var xs = Task9.CreateUniformMesh();
+            var ys = Task9.GetSolution();
+
+
             WpfPlot1.Plot.AddScatter(xs, ys);
 
             WpfPlot1.Refresh();
