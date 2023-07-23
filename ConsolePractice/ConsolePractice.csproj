@@ -64,6 +64,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Task6\Task6Math.cs" />
     <Compile Include="Task7\Task7.cs" />
     <Compile Include="Task7\Task7Math.cs" />
+    <Compile Include="Task9\MishasVersion.cs" />
     <Compile Include="Task9\Task9.cs" />
     <Compile Include="Task9\Task9Math.cs" />
   </ItemGroup>

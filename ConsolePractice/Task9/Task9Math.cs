@@ -31,6 +31,7 @@ namespace ConsolePractice.Task9
             var ksi = Ksi(Avector[i], Bvector[i - 1]);
             Bvector[i] -= ksi * Cvector[i - 1];
             Dvector[i] -= ksi * Dvector[i - 1];
+            Avector[i]=0;
         }
 
         public static double ReverseItteration(int i, double ynPlus1)
@@ -49,8 +50,8 @@ namespace ConsolePractice.Task9
         public static void ReverseStroke(out double[] ys)
         {
             ys = new double[N];
-            //ys[N - 1] = Dvector[N - 1] / Bvector[N - 1];
-            ys[N - 1] = 1;
+            ys[N - 1] = Dvector[N - 1] / Bvector[N - 1];
+            //ys[N - 1] = 1;
             for (int i = 0; i < N - 1; i++)
             {
                 ys[N - 2 - i] = ReverseItteration(N - 2 - i, ys[N - 1 - i]);
