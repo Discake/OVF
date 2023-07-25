@@ -28,7 +28,7 @@ namespace OVF_graphics
         {
             InitializeComponent();
 
-            task9(10);
+            task9();
         }
 
         void task3()
@@ -101,20 +101,28 @@ namespace OVF_graphics
 
         void task9(int N = 100)
         {
+            
             Task9.N = N;
-            Task9.m1 = 0;
-            Task9.n1 = 0;
+            Task9.m1 = -1;
+            Task9.n1 = 1;
             Task9.n2 = 1;
-            Task9.m2 = 10000;
+            Task9.m2 = 1;
             Task9.m = 0;
             Task9.n = 0;
 
+
+
             //Task9.GetSolution(out var xs, out var ys);
             var xs = Task9.CreateUniformMesh();
+            var cond1 = Task9.condition1;
+            var cond2 = Task9.condition2;
+
             var ys = Task9.Solve();
-            
+
+            var exact = Task9.ExactSolution(xs);
 
             WpfPlot1.Plot.AddScatter(xs, ys);
+            WpfPlot1.Plot.AddScatter(xs, exact);
 
             WpfPlot1.Refresh();
         }
