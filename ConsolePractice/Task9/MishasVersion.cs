@@ -25,7 +25,7 @@ namespace ConsolePractice.Task9
     }
     public class RunnerSolver
     {
-        public int n = 5;
+        public int n = 20;
 
         private double h;
 
@@ -70,7 +70,7 @@ namespace ConsolePractice.Task9
                 double lastN = ns.Last();
 
                 double e = ci(equation, xi) / (bi(equation, xi) - ai(equation, xi) * lastE);
-                double n = -(lastN * ai(equation, xi) - di(equation, xi)) / (bi(equation, xi) - ai(equation, xi) * lastE);
+                double n = (lastN * ai(equation, xi) - di(equation, xi)) / (bi(equation, xi) - ai(equation, xi) * lastE);
 
                 es.Add(e);
                 ns.Add(n);

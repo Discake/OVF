@@ -76,8 +76,10 @@ namespace ConsolePractice.Task9
             SecondOrderEquation equation = new SecondOrderEquation();
             equation.a = -Math.PI * 0.5;
             equation.b = Math.PI * 0.5;
-            equation.ct1 = 1;
+            equation.ct1 = -1;
+            equation.ct2 = 1;
             equation.dt1 = 1;
+            equation.dt2 = 1;
             equation.rx = x => Math.Cos(x);
 
             RunnerSolver runner = new RunnerSolver();
