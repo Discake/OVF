@@ -12,11 +12,20 @@ namespace ConsolePractice.Task9
         public static int N { get; set; } = 100;
 
         private static double h;
-        private static double[] Dvector;
-        private static double[] Avector;
-        private static double[] Bvector;
-        private static double[] Cvector;
-        public static double a, b, c, d, d0, dnPlus1;
+        private static List<double> Dvector = new List<double>();
+        private static List<double> Avector = new List<double>();
+        private static List<double> Bvector = new List<double>();
+        private static List<double> Cvector = new List<double>();
+
+        //m1 * y(a) + m2 * y'(a) = m =>
+        //m1 y0 + m2 (y1 - y0)/h = m =>
+        //BVector[0] = m1 - m2 / h, Cvector[0] = m2 / h, Dvector[0] = m
+
+        //n1 * y(b) + n2 * y'(b) = n
+        //n1 yn + n2 (yn - y(n-1)) / h = n
+        //Avector[N] = -n2 / h, Bvector[N] = n1 + n2 / h, Dvector[N] = n
+
+        public static double m1, m2, m, n1, n2, n;
 
         public static double[] CreateUniformMesh()
         {
@@ -34,31 +43,56 @@ namespace ConsolePractice.Task9
         static void FillDvector()
         {
             var xs = CreateUniformMesh();
-            Dvector = new double[N + 1];
+
+            Dvector.Add(m);
+
             for (int i = 1; i < N; i++)
             {
-                Dvector[i] = Math.Cos(xs[i]);
+                Dvector.Add(Math.Cos(xs[i]));
             }
 
-            Dvector[0] = d0;
-            Dvector[N] = dnPlus1;
+            Dvector.Add(n);
         }
 
         static void FillOtherVectors()
         {
-            Avector = new double[N + 1];
-            Bvector = new double[N + 1];
-            Cvector = new double[N + 1];
+            Avector.Add(0);
+            Bvector.Add(m1 - m2 / h);
+            Cvector.Add(m2 / h);
             for (int i = 1; i < N; i++)
             {
-                Avector[i] = Cvector[i] = 1 / (h * h);
-                Bvector[i] = 2 / (h * h);
+                Avector.Add(1 / (h * h));
+                Cvector.Add(1 / (h * h));
+                Bvector.Add(-2 / (h * h));
+            }
+            Avector.Add(-n2 / h);
+            Bvector.Add(n1 + n2 / h);
+            Cvector.Add(0);
+        }
+
+        public static double[] Solve()
+        {
+            FillDvector();
+            FillOtherVectors();
+
+            for (int i = 1; i < Dvector.Count - 1; i++)
+            {
+                double ksi = Avector[i] / Bvector[i - 1];
+                Avector[i] = 0;
+                Bvector[i] = Bvector[i] - ksi * Cvector[i - 1];
+                Dvector[i] = Dvector[i] - ksi * Dvector[i - 1];
             }
 
-            Bvector[0] = a - b / h;
-            Cvector[0] = b / h;
-            Avector[N] = -d / h;
-            Bvector[N] = c + d / h;
+            List<double> solution = new List<double>();
+            solution.Add(Dvector.Last() / Bvector.Last());
+            for (int i = Dvector.Count - 2; i >= 0; i--)
+            {
+                var temp = (1 / Bvector[i]) * (Dvector[i] - Cvector[i] * solution.Last());
+                solution.Add(temp);
+            }
+
+            //solution.Reverse();
+            return solution.ToArray();
         }
 
         public static void GetSolution(out double[] xs, out double[] ys)
