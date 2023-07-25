@@ -28,7 +28,7 @@ namespace OVF_graphics
         {
             InitializeComponent();
 
-            task9(20);
+            task9(10);
         }
 
         void task3()
