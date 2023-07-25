@@ -95,34 +95,5 @@ namespace ConsolePractice.Task9
             return solution.ToArray();
         }
 
-        public static void GetSolution(out double[] xs, out double[] ys)
-        {
-            /*FillDvector();
-            FillOtherVectors();
-            Task9Math.Avector = Avector;
-            Task9Math.Bvector = Bvector;
-            Task9Math.Cvector = Cvector;
-            Task9Math.Dvector = Dvector;
-            Task9Math.N = N + 1;
-            Task9Math.StraightStroke();
-            Task9Math.ReverseStroke(out var solution);*/
-
-            SecondOrderEquation equation = new SecondOrderEquation();
-            equation.a = -Math.PI * 0.5;
-            equation.b = Math.PI * 0.5;
-            equation.ct1 = 1;
-            equation.dt1 = 1;
-            equation.rx = x => Math.Cos(x);
-
-            RunnerSolver runner = new RunnerSolver();
-            var sol = runner.solve(equation);
-            xs = new double[sol.Count];
-            ys = new double[sol.Count];
-            for (int i = 0; i < sol.Count; i++)
-            {
-                xs[i] = sol[i].X;
-                ys[i] = sol[i].Y;
-            }
-        }
     }
 }

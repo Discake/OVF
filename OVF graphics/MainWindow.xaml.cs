@@ -105,7 +105,7 @@ namespace OVF_graphics
             Task9.m1 = 0;
             Task9.n1 = 0;
             Task9.n2 = 1;
-            Task9.m2 = 1;
+            Task9.m2 = 10000;
             Task9.m = 0;
             Task9.n = 0;
 
