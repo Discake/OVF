@@ -55,30 +55,42 @@ namespace ConsolePractice.Task9
         {
             var xs = CreateUniformMesh();
 
-            Dvector.Add(m);
+            //Dvector.Add(m);
+            Dvector.Add(m*h/(m1*h-m2));
 
             for (int i = 1; i < N; i++)
             {
                 Dvector.Add(Math.Cos(xs[i]));
             }
 
-            Dvector.Add(n);
+            Dvector.Add(n*h/n2);
+            //Dvector.Add(n);
         }
 
         static void FillOtherVectors()
         {
-            Avector.Add(0);
+            /*Avector.Add(0);
             Bvector.Add(m1 - m2 / h);
-            Cvector.Add(m2 / h);
+            Cvector.Add(m2 / h);*/
+
+            Avector.Add(0);
+            Bvector.Add(1);
+            Cvector.Add(m2/(m1*h - m2));
+
             for (int i = 1; i < N; i++)
             {
                 Avector.Add(1 / (h * h));
                 Cvector.Add(1 / (h * h));
                 Bvector.Add(-2 / (h * h));
             }
-            Avector.Add(-n2 / h);
-            Bvector.Add(n1 + n2 / h);
+
+            Avector.Add(1);
+            Bvector.Add(-(n1*h+n2)/n2);
             Cvector.Add(0);
+
+            /*Avector.Add(-n2 / h);
+            Bvector.Add(n1 + n2 / h);
+            Cvector.Add(0);*/
         }
 
         public static double[] Solve()
