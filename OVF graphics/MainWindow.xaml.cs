@@ -99,11 +99,11 @@ namespace OVF_graphics
             WpfPlot1.Refresh();
         }
 
-        void task9(int N = 100)
+        void task9(int N = 10)
         {
             
             Task9.N = N;
-            Task9.m1 = -1;
+            Task9.m1 = 1;
             Task9.n1 = 1;
             Task9.n2 = 1;
             Task9.m2 = 1;

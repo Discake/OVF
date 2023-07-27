@@ -99,7 +99,7 @@ namespace ConsolePractice.Task9
             FillOtherVectors();
 
             //Прямой ход
-            for (int i = 1; i < Dvector.Count - 1; i++)
+            for (int i = 1; i < Dvector.Count; i++)
             {
                 double ksi = Avector[i] / Bvector[i - 1];
                 Avector[i] = 0;
