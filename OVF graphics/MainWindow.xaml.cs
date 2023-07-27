@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ConsolePractice.Task10;
 using ConsolePractice.Task6;
 using ConsolePractice.Task7;
 using ConsolePractice.Task9;
@@ -28,7 +29,7 @@ namespace OVF_graphics
         {
             InitializeComponent();
 
-            task9();
+            task10();
         }
 
         void task3()
@@ -109,6 +110,7 @@ namespace OVF_graphics
             Task9.m2 = 1;
             Task9.m = 0;
             Task9.n = 0;
+            Task9.Fill = true;
 
 
 
@@ -125,6 +127,22 @@ namespace OVF_graphics
             WpfPlot1.Plot.AddScatter(xs, exact);
 
             WpfPlot1.Refresh();
+        }
+
+        void task10()
+        {
+            Task10 task10 = new Task10();
+            task10.Nt = 100;
+            task10.Nx = 100;
+            task10.T = 0.5;
+            task10.Solve();
+            var result = task10.Map;
+
+            var plt = new ScottPlot.Plot(600, 400);
+
+            plt.AddHeatmap(result);
+
+            plt.SaveFig("heatmap_quickstart.png");
         }
     }
 }

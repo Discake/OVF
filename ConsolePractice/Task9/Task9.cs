@@ -12,10 +12,11 @@ namespace ConsolePractice.Task9
         public static int N { get; set; } = 100;
 
         private static double h;
-        private static List<double> Dvector = new List<double>();
-        private static List<double> Avector = new List<double>();
-        private static List<double> Bvector = new List<double>();
-        private static List<double> Cvector = new List<double>();
+        public static List<double> Dvector = new List<double>();
+        public static List<double> Avector = new List<double>();
+        public static List<double> Bvector = new List<double>();
+        public static List<double> Cvector = new List<double>();
+        public static bool Fill = false;
 
         //m1 * y(a) + m2 * y'(a) = m =>
         //m1 y0 + m2 (y1 - y0)/h = m =>
@@ -95,8 +96,11 @@ namespace ConsolePractice.Task9
 
         public static double[] Solve()
         {
-            FillDvector();
-            FillOtherVectors();
+            if (Fill)
+            {
+                FillDvector();
+                FillOtherVectors();
+            }
 
             //Прямой ход
             for (int i = 1; i < Dvector.Count; i++)
