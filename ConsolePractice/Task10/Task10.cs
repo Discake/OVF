@@ -85,11 +85,28 @@ namespace ConsolePractice.Task10
                 Task9.Task9.Dvector = new List<double>(D);
 
                 var Vm = Task9.Task9.Solve();
-                for (int j = 1; j < Vm.Length; j++)
+                for (int j = 0; j < Vm.Length; j++)
                 {
                     Map[i + 1, j] = Vm[j];
                 }
 
+            }
+        }
+
+        public void GetMax(out double[] xs, out double[] ys)
+        {
+            xs = new double[Nt + 1];
+            ys = new double[Nt + 1];
+
+            for (int i = 0; i < Nt + 1; i++)
+            {
+                xs[i] = i * tau;
+                ys[i] = Map[i, 0];
+                for (int j = 0; j < Nx + 1; j++)
+                {
+                    if (Map[i, j] > ys[i])
+                        ys[i] = Map[i, j];
+                }
             }
         }
     }

@@ -138,11 +138,29 @@ namespace OVF_graphics
             task10.Solve();
             var result = task10.Map;
 
-            var plt = new ScottPlot.Plot(600, 400);
+            var plt = new ScottPlot.Plot(1000, 1000);
 
             plt.AddHeatmap(result);
 
-            plt.SaveFig("heatmap_quickstart.png");
+            plt.SaveFig("map.png");
+
+            task10.GetMax(out var xs, out var ys);
+
+            double a = ys[0];
+            double b = (1 / xs[20]) * Math.Log(a / ys[20]);
+
+            double[] exp = new double[xs.Length];
+            for (int i = 0; i < exp.Length; i++)
+            {
+                exp[i] = a * Math.Exp(-b * xs[i]);
+            }
+
+            WpfPlot1.Plot.AddScatter(xs, ys, label: "Solution");
+            WpfPlot1.Plot.AddScatter(xs, exp, label: "Exponent");
+
+            WpfPlot1.Plot.Legend();
+
+            WpfPlot1.Refresh();
         }
     }
 }
