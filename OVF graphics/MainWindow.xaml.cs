@@ -168,10 +168,10 @@ namespace OVF_graphics
         {
             Task11 task11 = new Task11();
             task11.Eps = 1e-10;
-            task11.N = 300;
+            task11.N = 100;
             task11.U = x => { return 0.5 * x * x; };
-            task11.leftBoundary = -10;
-            task11.rightBoundary = 10;
+            task11.leftBoundary = -5;
+            task11.rightBoundary = 5;
 
             task11.Solve(out var xs, out var ys, out var energy);
             task11.GetExactSolution(out var exact);

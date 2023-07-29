@@ -114,13 +114,23 @@ namespace ConsolePractice.Task11
         public void Solve(out double[] xs, out double[] ys, out double eigenVal)
         {
             Init();
+
+            var counter = 0;
             do
             {
                 NextItteration();
-            } while (Math.Abs(newEigenValue - eigenValue) > Eps);
-
+                counter++;
+            } while (counter < 10/*Math.Abs(newEigenValue - eigenValue) > Eps*/);
+            
             xs = this.xs;
             ys = newEigenVector;
+            double normCoef = GetNormalizingCoef(ys);
+
+            for (int i = 0; i < xs.Length; i++)
+            {
+                ys[i] /= Math.Sqrt(normCoef);
+            }
+
             eigenVal = newEigenValue;
         }
 
@@ -131,6 +141,24 @@ namespace ConsolePractice.Task11
             {
                 ys[i] = Math.Exp(-0.5 * xs[i] * xs[i]) / Math.Pow(Math.PI, 0.25);
             }
+
+            var normCoef = GetNormalizingCoef(ys);
+
+            for (int i = 0; i < xs.Length; i++)
+            {
+                ys[i] /= Math.Sqrt(normCoef);
+            }
+        }
+
+        double GetNormalizingCoef(double[] ys)
+        {
+            double res = 0;
+            for (int i = 1; i < xs.Length; i++)
+            {
+                res += (ys[i - 1] * ys[i - 1] + ys[i] * ys[i]) * h / 2;
+            }
+
+            return res;
         }
     }
 }
