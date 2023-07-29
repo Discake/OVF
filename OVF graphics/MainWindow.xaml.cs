@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ConsolePractice.Task10;
+using ConsolePractice.Task11;
 using ConsolePractice.Task6;
 using ConsolePractice.Task7;
 using ConsolePractice.Task9;
@@ -29,7 +30,7 @@ namespace OVF_graphics
         {
             InitializeComponent();
 
-            task10();
+            task11();
         }
 
         void task3()
@@ -157,6 +158,27 @@ namespace OVF_graphics
 
             WpfPlot1.Plot.AddScatter(xs, ys, label: "Solution");
             WpfPlot1.Plot.AddScatter(xs, exp, label: "Exponent");
+
+            WpfPlot1.Plot.Legend();
+
+            WpfPlot1.Refresh();
+        }
+
+        void task11()
+        {
+            Task11 task11 = new Task11();
+            task11.Eps = 1e-10;
+            task11.N = 300;
+            task11.U = x => { return 0.5 * x * x; };
+            task11.leftBoundary = -10;
+            task11.rightBoundary = 10;
+
+            task11.Solve(out var xs, out var ys, out var energy);
+            task11.GetExactSolution(out var exact);
+
+
+            WpfPlot1.Plot.AddScatter(xs, ys, label: "Solution");
+            WpfPlot1.Plot.AddScatter(xs, exact, label: "Exact solution");
 
             WpfPlot1.Plot.Legend();
 

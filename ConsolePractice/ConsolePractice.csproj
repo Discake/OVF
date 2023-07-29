@@ -70,6 +70,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Task10\Task10.cs" />
+    <Compile Include="Task11\Task11.cs" />
     <Compile Include="Task1\Task1.cs" />
     <Compile Include="Task2\Task2.cs" />
     <Compile Include="Task2\Task2Math.cs" />
