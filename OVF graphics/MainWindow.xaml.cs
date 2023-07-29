@@ -167,7 +167,7 @@ namespace OVF_graphics
         void task11()
         {
             Task11 task11 = new Task11();
-            task11.Eps = 1e-10;
+            task11.Eps = 1e-3;
             task11.N = 100;
             task11.U = x => { return 0.5 * x * x; };
             task11.leftBoundary = -5;

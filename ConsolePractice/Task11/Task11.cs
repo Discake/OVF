@@ -39,14 +39,14 @@ namespace ConsolePractice.Task11
                 if (i == 0 || i == N)
                 {
                     A[i] = 0;
-                    B[i] = 1 - eigenValue;
+                    B[i] = 1;
                     C[i] = 0;
                     D[i] = 0;
                 }
                 else
                 {
                     A[i] = C[i] = -1 / (2 * h * h);
-                    B[i] = Uvector[i] + 1 / (h * h) - eigenValue;
+                    B[i] = Uvector[i] + 1 / (h * h);
                     D[i] = rand.NextDouble();
                 }
             }
@@ -73,26 +73,27 @@ namespace ConsolePractice.Task11
         {
             
             newEigenVector = Task9.Task9.Solve();
-            newEigenValue = eigenValue + CalcNorm(D) / CalcNorm(newEigenVector);
+            eigenValue = newEigenValue;
+            newEigenValue = CalcNorm(D) / CalcNorm(newEigenVector);
 
             for (int i = 0; i <= N; i++)
             {
                 if (i == 0 || i == N)
                 {
                     A[i] = 0;
-                    B[i] = 1 - newEigenValue;
+                    B[i] = 1;
                     C[i] = 0;
                     D[i] = 0;
                 }
                 else
                 {
                     A[i] = C[i] = -1 / (2 * h * h);
-                    B[i] = Uvector[i] + 1 / (h * h) - newEigenValue;
+                    B[i] = Uvector[i] + 1 / (h * h);
                 }
             }
 
             D = newEigenVector;
-            eigenValue = newEigenValue;
+            
             Task9.Task9.Avector = new List<double>(A);
             Task9.Task9.Bvector = new List<double>(B);
             Task9.Task9.Cvector = new List<double>(C);
@@ -120,7 +121,7 @@ namespace ConsolePractice.Task11
             {
                 NextItteration();
                 counter++;
-            } while (counter < 10/*Math.Abs(newEigenValue - eigenValue) > Eps*/);
+            } while (Math.Abs(newEigenValue - eigenValue) > Eps);
             
             xs = this.xs;
             ys = newEigenVector;
