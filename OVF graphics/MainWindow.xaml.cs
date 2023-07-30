@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ConsolePractice.Task10;
 using ConsolePractice.Task11;
+using ConsolePractice.Task12;
 using ConsolePractice.Task6;
 using ConsolePractice.Task7;
 using ConsolePractice.Task9;
@@ -30,7 +31,7 @@ namespace OVF_graphics
         {
             InitializeComponent();
 
-            task11();
+            task12();
         }
 
         void task3()
@@ -181,6 +182,23 @@ namespace OVF_graphics
             WpfPlot1.Plot.AddScatter(xs, exact, label: "Exact solution");
 
             WpfPlot1.Plot.Legend();
+
+            WpfPlot1.Refresh();
+        }
+
+        void task12()
+        {
+            Task12 task12 = new Task12();
+            task12.N = 400;
+
+            var freqLength = task12.N / (Math.PI * 4);
+
+            var sig = task12.GetSignal(Task12.WindowType.Hann);
+
+            var ft = task12.GetFourierTransform();
+
+            WpfPlot1.Plot.AddScatter(ft.freq, ft.magnitude);
+            //WpfPlot1.Plot.AddScatter(sig.time, sig.signal);
 
             WpfPlot1.Refresh();
         }
