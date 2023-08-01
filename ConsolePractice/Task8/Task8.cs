@@ -44,7 +44,7 @@ namespace ConsolePractice.Task8
                 return (fu, fv);
             };
 
-            return Task8Math.ImplicitScheme1();
+            return Task8Math.ImplicitScheme1NewVariant();
         }
     }
 }

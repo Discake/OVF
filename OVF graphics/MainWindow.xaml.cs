@@ -209,7 +209,7 @@ namespace OVF_graphics
             Task8 task8 = new Task8();
             task8.Min = 0;
             task8.Max = 1;
-            task8.N = 200;
+            task8.N = 1000;
             task8.U0 = 1;
             task8.V0 = 1;
 

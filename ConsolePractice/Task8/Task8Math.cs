@@ -39,7 +39,7 @@ namespace ConsolePractice.Task8
             return (u, v, t);
         }
 
-        private static double[] CalculateInversedJacobian(Func<double, double, (double, double)> newFunc, double u, double v)
+        private static double[] CalculateJacobian(Func<double, double, (double, double)> newFunc, double u, double v)
         {
             double[] jacobian = new double[4];
 
@@ -52,15 +52,21 @@ namespace ConsolePractice.Task8
             jacobian[2] = (tuple1.Item2 - tupleStart.Item2) / DerrivativeStep;
             jacobian[3] = (tuple2.Item2 - tupleStart.Item2) / DerrivativeStep;
 
-            double determinant = jacobian[0] * jacobian[3] - jacobian[1] * jacobian[2];
+            return jacobian;
+        }
 
-            double[] inversedJacobian = new double[4];
-            inversedJacobian[0] = jacobian[0] / determinant;
-            inversedJacobian[3] = jacobian[3] / determinant;
-            inversedJacobian[1] = jacobian[2] / determinant;
-            inversedJacobian[2] = jacobian[1] / determinant;
+        private static double[] Inverse(double[] matrix)
+        {
 
-            return inversedJacobian;
+            double determinant = matrix[0] * matrix[3] - matrix[1] * matrix[2];
+
+            double[] inversed = new double[4];
+            inversed[0] = matrix[0] / determinant;
+            inversed[3] = matrix[3] / determinant;
+            inversed[1] = matrix[2] / determinant;
+            inversed[2] = matrix[1] / determinant;
+
+            return inversed;
         }
 
         public static (double[] u, double[] v, double[] t) ImplicitScheme1()
@@ -81,18 +87,50 @@ namespace ConsolePractice.Task8
                 {
                     var tupleF = Func(u[i - 1], v[i - 1]);
                     var tupleFnew = Func(u_, v_);
-                    double newU = u[i - 1] + h * tupleF.Item1 / 2 + h * tupleF.Item1 - u_;
-                    double newV = v[i - 1] + h * tupleF.Item2 / 2 + h * tupleF.Item2 - v_;
+                    double newU = u[i - 1] + h * tupleF.Item1 / 2 + h * tupleFnew.Item1 / 2 - u_;
+                    double newV = v[i - 1] + h * tupleF.Item2 / 2 + h * tupleFnew.Item2 / 2 - v_;
 
                     return (newU, newV);
                 };
 
-                var invJac = CalculateInversedJacobian(newFunc, u[i - 1], v[i - 1]);
+                var invJac = Inverse(CalculateJacobian(newFunc, u[i - 1], v[i - 1]));
 
                 var newFuncCurrent = newFunc(u[i - 1], v[i - 1]);
 
                 u[i] = u[i - 1] - invJac[0] * newFuncCurrent.Item1 - invJac[1] * newFuncCurrent.Item2;
                 v[i] = v[i - 1] - invJac[2] * newFuncCurrent.Item1 - invJac[3] * newFuncCurrent.Item2;
+            }
+
+            return (u, v, t);
+        }
+
+        public static (double[] u, double[] v, double[] t) ImplicitScheme1NewVariant()
+        {
+            h = (Max - Min) / N;
+
+            double[] u = new double[N + 1];
+            double[] v = new double[N + 1];
+            double[] t = new double[N + 1];
+            u[0] = U0;
+            v[0] = V0;
+            t[0] = Min;
+            for (int i = 1; i < N + 1; i++)
+            {
+                t[i] = t[i - 1] + h;
+
+                var jac = CalculateJacobian(Func, u[i - 1], v[i - 1]);
+                double[] matrix = new double[4];
+                matrix[0] = 1 - h * jac[0];
+                matrix[1] = -h * jac[1];
+                matrix[2] = -h * jac[2];
+                matrix[3] = 1 - h * jac[3];
+
+                var inversed = Inverse(matrix);
+
+                var tupleF = Func(u[i - 1], v[i - 1]);
+
+                u[i] = u[i - 1] + h * inversed[0] * tupleF.Item1 + inversed[1] * tupleF.Item2;
+                v[i] = v[i - 1] + h * inversed[2] * tupleF.Item1 + inversed[3] * tupleF.Item2;
             }
 
             return (u, v, t);
