@@ -19,6 +19,7 @@ using ConsolePractice.Task12;
 using ConsolePractice.Task6;
 using ConsolePractice.Task7;
 using ConsolePractice.Task9;
+using ConsolePractice.Task8;
 
 namespace OVF_graphics
 {
@@ -31,7 +32,7 @@ namespace OVF_graphics
         {
             InitializeComponent();
 
-            task12();
+            task8();
         }
 
         void task3()
@@ -199,6 +200,26 @@ namespace OVF_graphics
 
             WpfPlot1.Plot.AddScatter(ft.freq, ft.magnitude);
             //WpfPlot1.Plot.AddScatter(sig.time, sig.signal);
+
+            WpfPlot1.Refresh();
+        }
+
+        void task8()
+        {
+            Task8 task8 = new Task8();
+            task8.Min = 0;
+            task8.Max = 1;
+            task8.N = 200;
+            task8.U0 = 1;
+            task8.V0 = 1;
+
+            var res1 = task8.GetExplicit1Solution();
+            var res2 = task8.GetImplicit1Solution();
+
+            WpfPlot1.Plot.AddScatter(res2.t, res2.u, label: "U");
+            WpfPlot1.Plot.AddScatter(res2.t, res2.v, label: "V");
+
+            WpfPlot1.Plot.Legend();
 
             WpfPlot1.Refresh();
         }

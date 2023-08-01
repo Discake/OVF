@@ -86,6 +86,8 @@
     <Compile Include="Task6\Task6Math.cs" />
     <Compile Include="Task7\Task7.cs" />
     <Compile Include="Task7\Task7Math.cs" />
+    <Compile Include="Task8\Task8.cs" />
+    <Compile Include="Task8\Task8Math.cs" />
     <Compile Include="Task9\Task9.cs" />
   </ItemGroup>
   <ItemGroup>
