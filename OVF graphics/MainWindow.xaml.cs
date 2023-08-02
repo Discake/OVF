@@ -209,15 +209,25 @@ namespace OVF_graphics
             Task8 task8 = new Task8();
             task8.Min = 0;
             task8.Max = 1;
-            task8.N = 1000;
+            task8.N = 50;
+            task8.U0 = 1;
+            task8.V0 = 1;
+
+            var res2 = task8.GetImplicit1Solution();
+
+            WpfPlot1.Plot.AddScatter(res2.t, res2.u, label: "U implicit");
+            WpfPlot1.Plot.AddScatter(res2.t, res2.v, label: "V implicit");
+
+            task8.Min = 0;
+            task8.Max = 1;
+            task8.N = 5000;
             task8.U0 = 1;
             task8.V0 = 1;
 
             var res1 = task8.GetExplicit1Solution();
-            var res2 = task8.GetImplicit1Solution();
-
-            WpfPlot1.Plot.AddScatter(res2.t, res2.u, label: "U");
-            WpfPlot1.Plot.AddScatter(res2.t, res2.v, label: "V");
+            
+            WpfPlot1.Plot.AddScatter(res1.t, res1.u, label: "U explicit");
+            WpfPlot1.Plot.AddScatter(res1.t, res1.v, label: "V explicit");
 
             WpfPlot1.Plot.Legend();
 

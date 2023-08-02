@@ -14,7 +14,7 @@ namespace ConsolePractice.Task8
         private static double h;
         public static Func<double, double, (double, double)> Func;
 
-        public static double DerrivativeStep = 1e-5;
+        public static double DerrivativeStep = 1e-7;
 
         public static (double[] u, double[] v, double[] t) ExplicitScheme1()
         {
@@ -61,10 +61,10 @@ namespace ConsolePractice.Task8
             double determinant = matrix[0] * matrix[3] - matrix[1] * matrix[2];
 
             double[] inversed = new double[4];
-            inversed[0] = matrix[0] / determinant;
-            inversed[3] = matrix[3] / determinant;
-            inversed[1] = matrix[2] / determinant;
-            inversed[2] = matrix[1] / determinant;
+            inversed[0] = matrix[3] / determinant;
+            inversed[1] = -matrix[1] / determinant;
+            inversed[2] = -matrix[2] / determinant;
+            inversed[3] = matrix[0] / determinant;
 
             return inversed;
         }
@@ -82,23 +82,38 @@ namespace ConsolePractice.Task8
             for (int i = 1; i < N + 1; i++)
             {
                 t[i] = t[i - 1] + h;
+                var oldu = u[i - 1];
+                var oldv = v[i - 1];
 
                 Func<double, double, (double, double)> newFunc = (u_, v_) =>
                 {
-                    var tupleF = Func(u[i - 1], v[i - 1]);
+                    var u1 = u[i - 1];
+                    var v1 = v[i - 1];
+                    var tupleF = Func(u1, v1);
                     var tupleFnew = Func(u_, v_);
-                    double newU = u[i - 1] + h * tupleF.Item1 / 2 + h * tupleFnew.Item1 / 2 - u_;
-                    double newV = v[i - 1] + h * tupleF.Item2 / 2 + h * tupleFnew.Item2 / 2 - v_;
+                    double newU = u1 + h * tupleF.Item1 / 2 + h * tupleFnew.Item1 / 2 - u_;
+                    double newV = v1 + h * tupleF.Item2 / 2 + h * tupleFnew.Item2 / 2 - v_;
 
                     return (newU, newV);
                 };
+                var temp1 = u[i - 1];
+                var temp2 = v[i - 1];
+                for (int j = 0; j < 3; j++)
+                {
+                    
+                    var invJac = Inverse(CalculateJacobian(newFunc, temp1, temp2));
 
-                var invJac = Inverse(CalculateJacobian(newFunc, u[i - 1], v[i - 1]));
+                    var newFuncCurrent = newFunc(temp1, temp2);
 
-                var newFuncCurrent = newFunc(u[i - 1], v[i - 1]);
 
-                u[i] = u[i - 1] - invJac[0] * newFuncCurrent.Item1 - invJac[1] * newFuncCurrent.Item2;
-                v[i] = v[i - 1] - invJac[2] * newFuncCurrent.Item1 - invJac[3] * newFuncCurrent.Item2;
+                    temp1 = temp1 - invJac[0] * newFuncCurrent.Item1 - invJac[1] * newFuncCurrent.Item2;
+                    temp2 = temp2 - invJac[2] * newFuncCurrent.Item1 - invJac[3] * newFuncCurrent.Item2;
+                }
+
+                u[i] = temp1;
+                v[i] = temp2;
+                u[i - 1] = oldu;
+                v[i - 1] = oldv;
             }
 
             return (u, v, t);
