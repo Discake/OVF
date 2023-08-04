@@ -20,6 +20,7 @@ using ConsolePractice.Task6;
 using ConsolePractice.Task7;
 using ConsolePractice.Task9;
 using ConsolePractice.Task8;
+using ConsolePractice.ExtraTask;
 
 namespace OVF_graphics
 {
@@ -32,7 +33,7 @@ namespace OVF_graphics
         {
             InitializeComponent();
 
-            task8();
+            extraTask();
         }
 
         void task3()
@@ -228,6 +229,30 @@ namespace OVF_graphics
             
             WpfPlot1.Plot.AddScatter(res1.t, res1.u, label: "U explicit");
             WpfPlot1.Plot.AddScatter(res1.t, res1.v, label: "V explicit");
+
+            WpfPlot1.Plot.Legend();
+
+            WpfPlot1.Refresh();
+        }
+
+        void extraTask()
+        {
+            ExtraTask extraTask = new ExtraTask();
+            extraTask.Nt = 10000;
+            extraTask.Nx = 1000;
+            extraTask.T = 10;
+            extraTask.Solve();
+            var result = extraTask.Map;
+
+            var plt = new ScottPlot.Plot(1000, 1000);
+
+            plt.AddHeatmap(result);
+
+            plt.SaveFig("ExtraTask_map.png");
+
+            extraTask.GetMax(out var xs, out var ys);
+
+            WpfPlot1.Plot.AddScatter(xs, ys, label: "Coordinate of max temperature");
 
             WpfPlot1.Plot.Legend();
 

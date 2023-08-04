@@ -11,18 +11,18 @@ namespace ConsolePractice.Task10
     {
         public int Nx, Nt;
         public double T;
-        private double h;
-        private double tau;
+        protected double h;
+        protected double tau;
 
-        double[] A, B, C, D;
-        public double[,] Map { get; private set; }
+        protected double[] A, B, C, D;
+        public double[,] Map { get; protected set; }
 
         double InitialTemp(double x)
         {
             return x * (1 - x) * (1 - x);
         }
 
-        public void SetBoundaryConditions()
+        public virtual void SetInitialConditions()
         {
             h = 1.0 / Nx;
             tau = T / Nt;
@@ -33,15 +33,15 @@ namespace ConsolePractice.Task10
             }
         }
 
-        void FillVectors(int m)
+        protected virtual void FillVectors(int m)
         {
             A = new double[Nx - 1];
             B = new double[Nx - 1];
             C = new double[Nx - 1];
             D = new double[Nx - 1];
-            
 
-            
+
+
             for (int i = 0; i < Nx - 1; i++)
             {
                 double temp = Map[m, i + 1] + tau * (Map[m, i] - 2 * Map[m, i + 1] + Map[m, i + 2]) / (2 * h * h);
@@ -55,7 +55,7 @@ namespace ConsolePractice.Task10
                 }
                 else if (i == Nx - 2)
                 {
-                    
+
                     A[i] = -0.5 * tau / (h * h);
                     B[i] = 1 + tau / (h * h);
                     C[i] = 0;
@@ -64,7 +64,7 @@ namespace ConsolePractice.Task10
                 }
                 else
                 {
-                    
+
                     A[i] = -0.5 * tau / (h * h);
                     B[i] = 1 + tau / (h * h);
                     C[i] = -0.5 * tau / (h * h);
@@ -75,7 +75,7 @@ namespace ConsolePractice.Task10
 
         public void Solve()
         {
-            SetBoundaryConditions();
+            SetInitialConditions();
             for (int i = 0; i < Nt; i++)
             {
                 FillVectors(i);
@@ -93,7 +93,7 @@ namespace ConsolePractice.Task10
             }
         }
 
-        public void GetMax(out double[] xs, out double[] ys)
+        public virtual void GetMax(out double[] xs, out double[] ys)
         {
             xs = new double[Nt + 1];
             ys = new double[Nt + 1];
