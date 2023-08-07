@@ -255,7 +255,7 @@ namespace OVF_graphics
             ExtraTask extraTaskGrad1IsZero = new ExtraTaskGrad1IsZero();
             extraTaskGrad1IsZero.Nt = 1000;
             extraTaskGrad1IsZero.Nx = 1000;
-            extraTaskGrad1IsZero.T = 0.5;
+            extraTaskGrad1IsZero.T = 10;
             extraTaskGrad1IsZero.Solve();
             var result2 = extraTaskGrad1IsZero.Map;
 

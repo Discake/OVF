@@ -44,9 +44,10 @@ namespace ConsolePractice.Task10
 
             for (int i = 0; i < Nx - 1; i++)
             {
-                double temp = Map[m, i + 1] + tau * (Map[m, i] - 2 * Map[m, i + 1] + Map[m, i + 2]) / (2 * h * h);
+                
                 if (i == 0)
                 {
+                    double temp = Map[m, i];
                     A[i] = 0;
                     B[i] = 1 + tau / (h * h);
                     C[i] = -0.5 * tau / (h * h);
@@ -55,7 +56,7 @@ namespace ConsolePractice.Task10
                 }
                 else if (i == Nx - 2)
                 {
-
+                    double temp = Map[m, i];
                     A[i] = -0.5 * tau / (h * h);
                     B[i] = 1 + tau / (h * h);
                     C[i] = 0;
@@ -64,7 +65,7 @@ namespace ConsolePractice.Task10
                 }
                 else
                 {
-
+                    double temp = Map[m, i] + tau * (Map[m, i - 1] - 2 * Map[m, i] + Map[m, i + 1]) / (2 * h * h);
                     A[i] = -0.5 * tau / (h * h);
                     B[i] = 1 + tau / (h * h);
                     C[i] = -0.5 * tau / (h * h);
