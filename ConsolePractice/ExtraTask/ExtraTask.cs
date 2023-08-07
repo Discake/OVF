@@ -68,4 +68,17 @@ namespace ConsolePractice.ExtraTask
             }
         }
     }
+
+    public class ExtraTaskGrad1IsZero : ExtraTask
+    {
+        protected override void FillVectors(int m)
+        {
+            base.FillVectors(m);
+            A[A.Length - 1] = -tau / (3 * h * h);
+            //C[0] = -tau / (3 * h * h);
+            //B[0] = 1 + tau / (3 * h * h);
+            //B[0] = B[B.Length - 1] = 1 + tau / (3 * h * h);
+            B[B.Length - 1] = 1 + tau / (3 * h * h);
+        }
+    }
 }

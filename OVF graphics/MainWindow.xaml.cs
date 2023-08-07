@@ -238,7 +238,7 @@ namespace OVF_graphics
         void extraTask()
         {
             ExtraTask extraTask = new ExtraTask();
-            extraTask.Nt = 10000;
+            extraTask.Nt = 1000;
             extraTask.Nx = 1000;
             extraTask.T = 10;
             extraTask.Solve();
@@ -252,7 +252,23 @@ namespace OVF_graphics
 
             extraTask.GetMax(out var xs, out var ys);
 
+            ExtraTask extraTaskGrad1IsZero = new ExtraTaskGrad1IsZero();
+            extraTaskGrad1IsZero.Nt = 1000;
+            extraTaskGrad1IsZero.Nx = 1000;
+            extraTaskGrad1IsZero.T = 0.5;
+            extraTaskGrad1IsZero.Solve();
+            var result2 = extraTaskGrad1IsZero.Map;
+
+            var plt2 = new ScottPlot.Plot(1000, 1000);
+
+            plt2.AddHeatmap(result2);
+
+            plt2.SaveFig("ExtraTask_map_grad_1_is_zero.png");
+
+            extraTaskGrad1IsZero.GetMax(out var xs2, out var ys2);
+
             WpfPlot1.Plot.AddScatter(xs, ys, label: "Coordinate of max temperature");
+            WpfPlot1.Plot.AddScatter(xs2, ys2, label: "Coordinate of max temperature (grad1 is 0)");
 
             WpfPlot1.Plot.Legend();
 
