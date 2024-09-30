@@ -129,5 +129,56 @@ namespace OVFProject
             Console.WriteLine($"1 < 1 + ULP : {1 < 1 + ULP}");
             Console.WriteLine($"1 + ULP < 1 + ULP + ULP / 2 : {1 + ULP < 1 + ULP + ULP / 2}");
         }
+
+        public static void CalculateSum()
+        {
+            double sum1 = 0;
+            double sum2 = 0;
+
+            double sum3 = 0;
+            double tempPositiveSum3 = 0;
+            double tempNegativeSum3 = 0;
+
+            double sum4 = 0;
+            double tempPositiveSum4 = 0;
+            double tempNegativeSum4 = 0;
+
+            int n = 10000;
+            for ( int i = 1; i < n + 1; i++ )
+            {
+                sum1 += Math.Pow(-1, i) / i;
+
+                if( i % 2 == 0 )
+                {
+                    tempPositiveSum3 += 1d / i;
+                }
+                else
+                {
+                    tempNegativeSum3 += -1d / i;
+                }
+            }
+            sum3 += tempNegativeSum3 + tempPositiveSum3;
+
+            for (int i = n; i >= 1; i--)
+            {
+                double temp = Math.Pow(-1, i) / i;
+                sum2 += temp;
+
+                if (i % 2 == 0)
+                {
+                    tempPositiveSum4 += 1d / i;
+                }
+                else
+                {
+                    tempNegativeSum4 += -1d / i;
+                }
+            }
+            sum4 += tempNegativeSum4 + tempPositiveSum4;
+
+            Console.WriteLine($"default sum is {sum1}");
+            Console.WriteLine($"backward sum is {sum2}");
+            Console.WriteLine($"default by partial sum is {sum3}");
+            Console.WriteLine($"backward by partial sum is {sum4}");
+        }
     }
 }

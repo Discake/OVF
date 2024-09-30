@@ -33,14 +33,18 @@ namespace OVF_graphics
         {
             InitializeComponent();
 
-            extraTask();
+            task3();
+            //extraTask();
         }
 
         void task3()
         {
-            int N = 8;
+            int N = 10;
             var trapezoidResults = Task3.CalculateTrapezoid(-1, 1, N, Task3.FuncName.I3a);
             var simpsonsResults = Task3.CalculateSimpsonsMethod(-1, 1, N, Task3.FuncName.I3a);
+            var leftRectResults = Task3.CalculateLeftRect(-1, 1, N, Task3.FuncName.I3a);
+            var rightRectResults = Task3.CalculateRightRect(-1, 1, N, Task3.FuncName.I3a);
+            var middleResults = Task3.CalculateMiddle(-1, 1, N, Task3.FuncName.I3a);
 
             double[] x = new double[N - 2];
             for (int i = 2; i < N; i++)
@@ -48,10 +52,27 @@ namespace OVF_graphics
                 x[i - 2] = (int)Math.Pow(2, i);
                 trapezoidResults[i - 2] = Math.Abs(Math.PI / 2 - trapezoidResults[i - 2]);
                 simpsonsResults[i - 2] = Math.Abs(Math.PI / 2 - simpsonsResults[i - 2]);
+                leftRectResults[i - 2] = Math.Abs(Math.PI / 2 - leftRectResults[i - 2]);
+                rightRectResults[i - 2] = Math.Abs(Math.PI / 2 - rightRectResults[i - 2]);
+                middleResults[i - 2] = Math.Abs(Math.PI / 2 - middleResults[i - 2]);
             }
 
-            WpfPlot1.Plot.AddScatter(x, trapezoidResults);
-            WpfPlot1.Plot.AddScatter(x, simpsonsResults);
+            var middle = WpfPlot1.Plot.AddScatter(x, middleResults);
+            var left = WpfPlot1.Plot.AddScatter(x, leftRectResults);
+            var right = WpfPlot1.Plot.AddScatter(x, rightRectResults);
+            var trapezoid = WpfPlot1.Plot.AddScatter(x, trapezoidResults);
+            var simpson = WpfPlot1.Plot.AddScatter(x, simpsonsResults);
+
+            middle.Label = "middle";
+            left.Label = "left";
+            right.Label = "right";
+            trapezoid.Label = "trapezoid";
+            simpson.Label = "simpson";
+
+            var errFunc = Task3.CalculateErrFuncAt(1, 64, Task3.Method.Simpson);
+            var diff = 0.84270079298407907 - errFunc;
+            var legend = WpfPlot1.Plot.Legend();
+            
             WpfPlot1.Refresh();
         }
 

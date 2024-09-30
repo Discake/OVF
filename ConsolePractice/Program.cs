@@ -24,7 +24,8 @@ namespace ConsolePractice
             Task1.FindMinDoubleValue();
             Task1.FindMaxDoubleValue();
 
-            Task1.CompareDouble();
+            //Task1.CompareDouble();
+            Task1.CalculateSum();
         }
 
         public static void task2()
@@ -42,10 +43,20 @@ namespace ConsolePractice
         public static void task4()
         {
             double dx = 1;
+            Task4.NIntegral = 64;
+
+            var length = Math.PI * 2;
+
+            double accuracy = 1e-11;
+            var h = Math.Sqrt(accuracy * 6);
+
+            Task4.Tolerance = h;
+
             for(double x = 0; x < Math.PI * 2; x += dx)
             {
                 Task4.CheckSumm(x);
             }
+            Task4.CheckSumm(2 * Math.PI);
         }
     }
 }

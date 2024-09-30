@@ -10,18 +10,61 @@ namespace ConsolePractice
     {
         public static Func<double, double> Func { get; set; }
 
-        public static double TrapezoidMethod(double min, double max, int N)
+        public static double LeftRectangle(double min, double max, int N)
         {
             double step = (max - min) / N;
             double result = 0;
-            double factor;
-            for (int i = 0; i <= N; i++)
+
+            for (int i = 0; i < N; i++)
             {
-                if (i == 0 || (i == N))
+                result += Func(min + i * step) * step;
+            }
+
+            return result;
+        }
+
+        public static double RightRectangle(double min, double max, int N)
+        {
+            double step = (max - min) / N;
+            double result = 0;
+
+            for (int i = 0; i < N; i++)
+            {
+                result += Func(min + (i + 1) * step) * step;
+            }
+
+            return result;
+        }
+
+        public static double Middle(double min, double max, int N)
+        {
+            double step = (max - min) / N;
+            double result = 0;
+
+            double argument = step / 2;
+            for (int i = 0; i < N; i++)
+            {
+                result += Func(min + argument) * step;
+                argument += step;
+            }
+
+            return result;
+        }
+
+        public static double TrapezoidMethod(double min, double max, int N)
+        {
+            double step = (max - min) / (N);
+            double result = 0;
+            double factor;
+            for (int i = 0; i < N; i++)
+            {
+                /*if (i == 0 || (i == N))
                     factor = 0.5;
                 else
                     factor = 1;
-                result += factor * step * Func(min + i * step);
+                result += factor * step * Func(min + i * step);*/
+
+                result += (Func(min + i * step) + Func(min + (i + 1) * step)) * step / 2;
             }
 
             return result;
@@ -29,7 +72,7 @@ namespace ConsolePractice
 
         public static double SimpsonsMethod(double min, double max, int N)
         {
-            double step = (max - min) / N;
+            double step = (max - min) / (N);
             double result = 0;
             double factor;
             for (int i = 0; i <= N; i++)
